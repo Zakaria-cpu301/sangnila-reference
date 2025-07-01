@@ -8,6 +8,7 @@
 :root {
   interpolate-size: allow-keywords;
   --main-bg-color: rgb(0, 41, 102);
+  --main-text-color: #ffffff;
 }
 
 .global-container-page {
@@ -44,7 +45,7 @@
       a {
         font-weight: 500;
         text-decoration: none;
-        color: white;
+        color: var(--main-text-color);
         font-size: 25px;
 
         &:focus {
@@ -79,7 +80,11 @@
 
   .bg-contrast {
     position: absolute;
-    background: linear-gradient(to bottom, transparent 40%, rgb(0, 41, 102)  100%);
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      rgb(0, 41, 102) 100%
+    );
     /* z-index: 200; */
     width: 100%;
     height: 120vh;
@@ -96,7 +101,7 @@
     h1 {
       font-size: 6em;
       font-weight: 900;
-      color: whitesmoke;
+      color: var(--main-text-color);
       display: flex;
       flex-direction: column;
       text-transform: uppercase;
@@ -111,7 +116,7 @@
       }
     }
     p {
-      color: white;
+      color: var(--main-text-color);
       font-size: 22px;
       font-weight: 600;
       display: flex;
@@ -144,44 +149,73 @@
       text-align: center;
       font-weight: 700;
       font-size: 25px;
-      color: whitesmoke;
+      color: var(--main-text-color);
     }
   }
 }
 
 .third-page {
-    width: 100%;
-    height: 100vh;
-    background-color: var(--main-bg-color);
-    padding-inline: 10%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  height: 215vh;
+  background-color: var(--main-bg-color);
+  padding-inline: 10%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 
-    .box-content {
-        display: flex;
-        justify-content: space-around;
-        img {
-            width: 100px;
-        }
-        .first-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 40%;
-            background: blue;
-        }
-        .last-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 40%;
-            background: blue;
-        }
+  > h1 {
+    font-size: 3em;
+    color: var(--main-text-color);
+    margin-bottom: 50px;
+  }
+
+  > img {
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    bottom: 0;
+  }
+
+  .box-content {
+    display: flex;
+    justify-content: space-around;
+
+    
+    .box {
+      width: 37.5%;
+      height: max-content;
+      border-radius: 30px;
+      background: linear-gradient(
+        rgba(115, 115, 115, 0) 0%,
+        rgba(30, 184, 205, 0.3) 100%
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem;
+
+      img {
+        width: 40%;
+      }
+
+      h1 {
+        text-align: center;
+        margin-block: 2em;
+        font-size: 2rem;
+        color: var(--main-text-color);
+      }
+
+      p {
+        color: var(--main-text-color);
+        text-align: justify;
+        font-weight: 500;
+        font-size: 1.25rem;
+      }
     }
+  }
 }
 
 /* FIFTH PAGE */
