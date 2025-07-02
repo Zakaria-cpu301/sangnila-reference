@@ -51,6 +51,12 @@
         &:focus {
           font-weight: bold;
           width: min-content;
+          border-style: solid;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          border-bottom: 5px;
+          background-color: red;
         }
       }
     }
@@ -244,7 +250,6 @@ nav a {
   padding-inline: 10%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 
   > h1 {
@@ -277,6 +282,14 @@ nav a {
       flex-direction: column;
       align-items: center;
       padding: 3rem;
+      opacity: 0;
+      transform: translateY(200px);
+      transition: all 1s ease-out;
+
+      &.active {
+        transform: translateY(0px);
+        opacity: 1;
+      }
 
       img {
         width: 40%;
@@ -305,9 +318,14 @@ nav a {
     row-gap: 40px;
     text-align: center;
     color: var(--main-text-color);
-
+    
     h1 {
       font-size: 3em;
+      transform: translateY(-100px);
+
+      &.show {
+        transform: translateY(0);
+      }
     }
 
     p {
@@ -328,13 +346,13 @@ nav a {
   padding-inline: 10%;
   background-color: var(--main-bg-color);
 
-  .bg-contrast {
+  /* .bg-contrast {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* background: linear-gradient(0deg, transparent 50%, rgba(0, 41, 102, 1) 94%); */
+    background: linear-gradient(0deg, transparent 50%, rgba(0, 41, 102, 1) 94%);
     z-index: 2;
-  }
+  } */
   > img {
     position: absolute;
     object-fit: cover;
@@ -411,6 +429,7 @@ nav a {
       text-transform: uppercase;
       color: var(--main-text-color);
       margin-block: 1em;
+      z-index: 3;
     }
     iframe {
       z-index: 3;
@@ -426,7 +445,6 @@ nav a {
   padding-inline: 10%;
   width: 100%;
   height: 300vh;
-  justify-content: center;
   align-items: center;
   color: #ffffff;
   h1 {
@@ -435,7 +453,7 @@ nav a {
     justify-items: start;
   }
   img {
-    width: 80em;
+    width: 70em;
   }
 }
 
@@ -445,4 +463,26 @@ nav a {
     font-size: 3em;
     color: #ffffff;
   }
+}
+
+.bungkus {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  h1 {
+    /* background: #ffffff; */
+    font-size: 20px;
+
+    &:first-child {
+      width: 50%;
+    }
+    &:last-child {
+    }
+  }
+}
+.flex {
+    background: linear-gradient(to right, rgb(30, 184, 205), rgb(53, 77, 155));
+  width: 100%;
+  height: 10px;
 }
