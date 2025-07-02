@@ -11,12 +11,12 @@
   --main-text-color: #ffffff;
 }
 
-.global-container-page {
+/* .global-container-page {
   width: 100%;
   height: 100vh;
-}
+} */
 
-/* .navbar {
+.navbar {
   position: fixed;
   top: 0;
   z-index: 100;
@@ -55,16 +55,12 @@
       }
     }
   }
-}  */
+}
 .logo img {
   width: 65px;
 }
 
-nav li:first-child {
-  margin-right: auto;
-}
-
-.sidebar {
+/* .sidebar {
   position: fixed;
   top: 0;
   right: 0;
@@ -72,13 +68,16 @@ nav li:first-child {
   width: 500px;
   z-index: 999;
   background: linear-gradient(to right, rgb(30, 184, 205), rgb(53, 77, 155));
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
 }
+.sidebar li {
+  width: 100%;
+}
 
-nav { 
+nav {
   background: linear-gradient(to right, rgb(30, 184, 205), rgb(53, 77, 155));
 }
 nav ul {
@@ -99,7 +98,12 @@ nav a {
   align-items: center;
   color: white;
   font-size: 25px;
-} 
+}
+@media (max-width: 800px) {
+  .hideOnMobile {
+    display: none;
+  }
+} */
 
 /* FIRST PAGE */
 .first-page {
@@ -117,6 +121,12 @@ nav a {
     object-position: 0 0;
     width: 100%;
     height: 120%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    &.show {
+      opacity: 1;
+    }
   }
 
   .bg-contrast {
@@ -134,10 +144,18 @@ nav a {
   .main-page {
     position: relative;
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    opacity: 0;
+    margin-bottom: 20px;
+    transform: translateY(200px);
+    transition: all 1s ease-in-out;
+
+    &.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     h1 {
       font-size: 6em;
@@ -185,6 +203,12 @@ nav a {
     align-items: center;
     width: 50%;
     height: max-content;
+    opacity: 0;
+    scale: 0;
+
+    &.show {
+      animation: showCuteText 1s forwards;
+    }
 
     p {
       text-align: center;
@@ -192,6 +216,23 @@ nav a {
       font-size: 25px;
       color: var(--main-text-color);
     }
+  }
+}
+
+@keyframes showCuteText {
+  25% {
+    opacity: 0;
+    scale: 50%;
+  }
+
+  50% {
+    opacity: 0.5;
+    scale: 110%;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 100%;
   }
 }
 
@@ -297,7 +338,7 @@ nav a {
   > img {
     position: absolute;
     object-fit: cover;
-    object-position: center ;
+    object-position: center;
     transform: scale(-1, -1);
     width: 100%;
     height: 200vh;
@@ -375,5 +416,33 @@ nav a {
       z-index: 3;
       border-radius: 40px;
     }
+  }
+}
+
+.partner {
+  background-color: var(--main-bg-color);
+  display: flex;
+  flex-direction: column;
+  padding-inline: 10%;
+  width: 100%;
+  height: 300vh;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  h1 {
+    margin: 20px;
+    padding: 20px;
+    justify-items: start;
+  }
+  img {
+    width: 80em;
+  }
+}
+
+.partner .title {
+  text-align: center;
+  h1 {
+    font-size: 3em;
+    color: #ffffff;
   }
 }
