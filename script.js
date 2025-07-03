@@ -11,6 +11,10 @@ const elements = {
     title: document.querySelector(".third-page > h1"),
     boxContent: document.querySelector(".third-page > .box-content"),
   },
+  fourthPage: {
+    title: document.querySelector(".fourth-page .title > h1"),
+    textContent: document.querySelector(".fourth-page .title > p")
+  }
 };
 
 const observer = new IntersectionObserver(
@@ -53,7 +57,7 @@ const observer = new IntersectionObserver(
 
       if (entry.target.offsetParent.className === 'third-page' && entry.target.tagName === 'H1') {
         if (entry.isIntersecting) {
-          if (entry.intersectionRatio >= 0.25) {
+          if (entry.intersectionRatio >= 0.5) {
             observer.unobserve(elements.thirdPage.title)
             setTimeout(() => {
               entry.target.classList.add("show")
@@ -73,6 +77,40 @@ const observer = new IntersectionObserver(
           }
         }
       }
+      
+      // console.log(entry.target.offsetParent.className === 'title' && entry.target.tagName === 'H1');
+      
+
+      if (entry.target.offsetParent.className === 'fourth-page' && entry.target.tagName === 'H1') {
+        if (entry.isIntersecting) {
+          if (entry.intersectionRatio >= 0.5) {
+            observer.unobserve(elements.fourthPage.title)
+            setTimeout(() => {
+              entry.target.classList.add("show")
+            }, 200);
+          }
+        }
+      }
+      if (entry.target.offsetParent.className === 'fourth-page' && entry.target.tagName === 'H1') {
+        if (entry.isIntersecting) {
+          if (entry.intersectionRatio >= 0.5) {
+            observer.unobserve(elements.fourthPage.title)
+            setTimeout(() => {
+              entry.target.classList.add("show")
+            }, 200);
+          }
+        }
+      }
+      if (entry.target.offsetParent.className === 'fourth-page' && entry.target.tagName === 'P') {
+        if (entry.isIntersecting) {
+          if (entry.intersectionRatio >= 0.5) {
+            observer.unobserve(elements.fourthPage.textContent)
+            setTimeout(() => {
+              entry.target.classList.add("show")
+            }, 200);
+          }
+        }
+      }
     });
   },
   {
@@ -84,7 +122,8 @@ observer.observe(elements.firstPage.textContent);
 observer.observe(elements.secondPage.textContent);
 observer.observe(elements.thirdPage.title);
 observer.observe(elements.thirdPage.boxContent);
-
+observer.observe(elements.fourthPage.title)
+observer.observe(elements.fourthPage.textContent)
 let iClick = 0
 const showSidebar = () => {
   iClick++
@@ -93,39 +132,98 @@ const showSidebar = () => {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const scrollContainers = document.querySelectorAll(".side-scroll");
+  const scrollContainers = document.querySelectorAll(".side-scroll");
 
-    scrollContainers.forEach(container => {
-      const items = container.querySelectorAll(".item");
-      const itemWidth = items[0].offsetWidth + 100; // +100px for the gap
+  scrollContainers.forEach(container => {
+    const items = container.querySelectorAll(".item");
+    const itemWidth = items[0].offsetWidth + parseInt(getComputedStyle(container).gap || 100);
 
-      // Clone items for infinite loop effect
-      items.forEach(item => {
-        const clone = item.cloneNode(true);
-        container.appendChild(clone);
-      });
+    // Duplicate items for seamless loop
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      container.appendChild(clone);
+    });
 
-      let scrollAmount = 0;
+    let currentIndex = 0;
+    let isPaused = false;
 
-      function autoScroll() {
-        scrollAmount += itemWidth;
+    function scrollNext() {
+      if (isPaused) return;
 
-        if (scrollAmount >= container.scrollWidth / 2) {
-          scrollAmount = 0;
-          container.scrollLeft = 0;
-        } else {
-          container.scrollTo({
-            left: scrollAmount,
-            behavior: 'smooth'
-          });
-        }
+      currentIndex++;
+      const maxIndex = items.length;
+
+      if (currentIndex >= maxIndex) {
+        container.scrollLeft = 0;
+        currentIndex = 1;
       }
 
-      setInterval(autoScroll, 2000); // scroll every 2 seconds
-      container.addEventListener("mouseenter", () => clearInterval(scrollTimer));
-container.addEventListener("mouseleave", () => {
-  scrollTimer = setInterval(autoScroll, 2000);
-});
+      container.scrollTo({
+        left: currentIndex * itemWidth,
+        behavior: "smooth"
+      });
+    }
 
+    let interval = setInterval(scrollNext, 2500);
+
+    // Pause on hover
+    container.addEventListener("mouseenter", () => isPaused = true);
+    container.addEventListener("mouseleave", () => isPaused = false);
+
+    // ============================
+    // Manual swipe support
+    // ============================
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      container.classList.add('dragging');
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+      isPaused = true; // pause auto scroll
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isDown = false;
+      container.classList.remove('dragging');
+      isPaused = false;
+    });
+
+    container.addEventListener('mouseup', () => {
+      isDown = false;
+      container.classList.remove('dragging');
+      isPaused = false;
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1; // scroll-fast multiplier
+      container.scrollLeft = scrollLeft - walk;
+    });
+
+    // Touch support
+    container.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX;
+      scrollLeft = container.scrollLeft;
+      isPaused = true;
+    });
+
+    container.addEventListener('touchend', () => {
+      isDown = false;
+      isPaused = false;
+    });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX;
+      const walk = (x - startX) * 1;
+      container.scrollLeft = scrollLeft - walk;
     });
   });
+});

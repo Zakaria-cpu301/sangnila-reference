@@ -503,8 +503,11 @@ nav a {
       background-color: red;
       font-size: 3em;
       transform: translateY(30px);
+      opacity: 0;
+      transition: all 1s ease-in-out;
 
       &.show {
+        opacity: 1;
         transform: translateY(0);
       }
     }
@@ -513,6 +516,12 @@ nav a {
       font-size: 1.5em;
       display: flex;
       flex-direction: column;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+
+      &.show {
+        opacity: 1;
+      }
     }
   }
 
@@ -540,7 +549,7 @@ nav a {
       }
       .item {
         flex-shrink: 0;
-        width: 15%;
+        width: 200px;
         height: 100%;
 
         img {
@@ -560,7 +569,7 @@ nav a {
       }
       .item {
         flex-shrink: 0;
-        width: 15%;
+        width: 200px;
         height: 100%;
         /* background-radiuscolor: rgb(255, 255, 255); */
 
@@ -575,6 +584,17 @@ nav a {
   .side-scroll::-webkit-scrollbar {
     display: none;
   }
+
+  .side-scroll.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto !important;
+ }
+
+ .side-scroll {
+  cursor: grab;
+}
+
+
   h1 {
     color: white;
     padding: 50px;
