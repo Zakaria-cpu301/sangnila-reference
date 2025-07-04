@@ -7,7 +7,7 @@
 
 :root {
   interpolate-size: allow-keywords;
-  --main-bg-color: rgb(0, 30, 122);
+  --main-bg-color: rgb(0, 41, 102);
   --main-text-color: #ffffff;
 }
 
@@ -27,6 +27,14 @@
   width: 100%;
   height: 65px;
   padding-inline: 5%;
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: all 1s ease;
+
+  &.showNav {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 
   .logo img {
     width: 65px;
@@ -533,6 +541,18 @@ nav a {
     }
   }
 
+  .bg-contrast {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      0deg,
+      transparent 50%,
+      var(--main-bg-color) 94%
+    );
+    z-index: 2;
+  }
+
   > img {
     position: absolute;
     object-fit: cover;
@@ -676,13 +696,12 @@ nav a {
 
       .first-content,
       .second-content {
-        opacity: 0;
         .side-scroll {
           gap: 20px;
         }
 
         .item {
-          width: 40%; /* item lebih besar agar lebih mudah dilihat */
+          width: 40%;
           scroll-snap-align: start;
         }
       }
@@ -760,7 +779,7 @@ nav a {
     align-items: center;
 
     img {
-      width: 50em;
+      width: 90%;
     }
     .img-right {
       opacity: 0;
@@ -782,12 +801,11 @@ nav a {
     }
     .bungkus {
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 100%;
       p {
-        font-size: 1rem;
+        font-size: 1.5rem;
       }
       .flex-line {
         background: linear-gradient(
@@ -819,7 +837,7 @@ nav a {
     img {
       width: 100%;
       height: auto;
-      margin-block: 2rem;
+      margin-block: 1rem;
     }
 
     h1 {
@@ -827,22 +845,23 @@ nav a {
       margin: 10px 0;
       padding: 10px 0;
     }
+
+    .container {
+      .bungkus {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+
+        p {
+          font-size: 1em;
+        }
+      }
+    }
   }
 
   .partner .title h1 {
     font-size: 2em;
-  }
-
-  .bungkus {
-    flex-direction: column;
-    /* align-items: center; */
-    width: 100%;
-
-    h1 {
-      font-size: 1em;
-      width: 100%;
-      font-weight: 400;
-    }
   }
 
   .flex {
@@ -862,12 +881,11 @@ footer {
   color: var(--main-text-color);
   gap: 10px;
 
-  
   h6 {
     text-transform: capitalize;
     font-size: 15px;
   }
-  
+
   .title {
     width: 35%;
     h1 {
@@ -877,8 +895,10 @@ footer {
       font-size: 12px;
     }
   }
-  
-  p, span, a {
+
+  p,
+  span,
+  a {
     font-size: 12.5px;
     color: var(--main-text-color);
     text-decoration: none;
@@ -904,5 +924,4 @@ footer {
     display: flex;
     flex-direction: column;
   }
-
 }

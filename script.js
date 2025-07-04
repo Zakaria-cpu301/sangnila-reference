@@ -170,6 +170,7 @@ const showSidebar = () => {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector('.navbar').classList.add("showNav")
   const scrollContainers = document.querySelectorAll(".side-scroll");
 
   scrollContainers.forEach((container) => {
